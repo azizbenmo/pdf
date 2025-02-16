@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <!-- basic -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!-- site metas -->
+    <title>{% block title %}GreenGrow{% endblock %}</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+        <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/png" href="{{asset('images/logo.png')}}">
+    <!-- bootstrap css -->
+    	{% block css%}
+      
+    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+    <!-- style css -->
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    <!-- Responsive-->
+    <link rel="stylesheet" href="{{asset('css/responsive.css')}}">
+    <!-- fevicon -->
+    <link rel="icon" href="{{asset('images/fevicon.png')}}" type="image/gif">
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="{{asset('css/jquery.mCustomScrollbar.min.css')}}">
+    <!-- Tweaks for older IEs-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
+      media="screen">
+      {% endblock %} 
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+  </head>
+ 
+
+   {% block js %}
+    <!-- end footer -->
+    <!-- Javascript files-->
+    <script src="{{asset('js/jquery.min.js')}}"></script>
+    <script src="{{asset('js/popper.min.js')}}"></script>
+    <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('js/jquery-3.0.0.min.js')}}"></script>
+    <script src="{{asset('js/plugin.js')}}"></script>
+    <!-- sidebar -->
+    <script src="{{asset('js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
+    <script src="{{asset('js/custom.js')}}"></script>
+    <!-- javascript -->
+    <script src="{{asset('js/owl.carousel.js')}}"></script>
+    <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".fancybox").fancybox({
+                openEffect: "none",
+                closeEffect: "none"
+            });
+
+            $(".zoom").hover(function() {
+
+                $(this).addClass('transition');
+            }, function() {
+
+                $(this).removeClass('transition');
+            });
+        });
+    </script>
+    <script>
+        // This example adds a marker to indicate the position of Bondi Beach in Sydney,
+        // Australia.
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 11,
+                center: {
+                    lat: 40.645037,
+                    lng: -73.880224
+                },
+            });
+
+            var image = 'images/maps-and-flags.png';
+            var beachMarker = new google.maps.Marker({
+                position: {
+                    lat: 40.645037,
+                    lng: -73.880224
+                },
+                map: map,
+                icon: image
+            });
+        }
+    </script>
+    <!-- google map js -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8eaHt9Dh5H57Zh0xVTqxVdBFCvFMqFjQ&callback=initMap"></script>
+    <!-- end google map js -->
+
+    {% endblock %}
+      <body>
+      {% block body %}
+      
+   <body class="main-layout ">
+    <!-- loader 
+    <div class="loader_bg">        <div class="loader"><img src="images/loading.gif" alt="#" /></div> -->
+    <!-- end loader -->
+    <!-- header -->
+    <header>
+      <!-- header inner -->
+      <div class="header">
+        <div class="container" style="height: 76px;">
+          <div class="row">
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col logo_section">
+              <div class="full">
+                <div class="center-desk">
+                  <div class="logo"> <a href="index.html"><img src="{{asset('images/logo.png')}}"
+
+                        alt="#" width="85" height="200"></a> </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+              <div class="location_icon_bottum_tt">
+                <ul>
+                  <li><img src="{{asset('icon/email1.png')}}">GreenGrow@gmail.com</li>
+                  <li><img src="{{asset('icon/call1.png')}}">(+216) 25845846</li>
+                  <li>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12"> <button
+
+                        class="send" style="width: 120px; margin-left: 700px; margin-top: -100px; height: 60px;">Inscription</button>
+                    </div>
+                    
+                    
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 location_icon_bottum" style="margin-top: -68px; height: 69px;">
+              <div class="row"> 
+                <div class="col-md-8 ">
+                  <div class="menu-area">
+                    <div class="limit-box">
+                      <nav class="main-menu">
+                        <ul class="menu-area-main">
+                          <li class="active"> <a href="index.html">Home</a> </li>
+                          <li> <a href="#about">About</a> </li>
+                          <li><a href="#product">Products</a></li>
+                          <li><a href="#testimonial">Testimonial</a></li>
+                          <li><a href="#contact">Contact Us</a></li>
+                        </ul>
+                      </nav>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                  <form class="search"> <input class="form-control" placeholder="Search"
+
+                      type="text"> <button><img src="{{asset('images/search_icon.png')}}"></button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end header inner --> </header>
+    <!-- end header -->
+    <section class="slider_section">
+      <div id="myCarousel" class="carousel slide banner-main" data-ride="carousel">
+        <ul class="carousel-indicators">
+          <li data-target="#myCarousel" data-slide-to="0" class=""><br>
+          </li>
+          <li data-target="#myCarousel" data-slide-to="1" class="active"><br>
+          </li>
+          <li data-target="#myCarousel" data-slide-to="2" class=""><br>
+          </li>
+        </ul>
+        <div class="carousel-inner">
+          <div class="carousel-item active"> <img class="first-slide" src="{{asset('images/banner.jpg')}}"
+
+              alt="First slide">
+            <div class="container">
+              <div class="carousel-caption relative">
+                <h1>GreenGrow</h1>
+                <span>FARMING COMPANY</span>
+                <p>Bienvenue sur Smart Farming, votre plateforme dédiée à
+                  l’agriculture de précision et aux technologies intelligentes
+                  pour optimiser la production agricole. </p>
+                <a class="buynow" href="#about">À propos de nous </a><a class="buynow ggg"
+
+                  href="#">Demander un devis</a> </div>
+            </div>
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+          <i class="fa fa-angle-left"></i> </a> <a class="carousel-control-next"
+
+          href="#myCarousel" role="button" data-slide="next"> <i class="fa fa-angle-right"></i>
+        </a> </div>
+    </section>
+    <!-- about -->
+    <div id="about" class="about">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-5 col-lg-5 col-md-5 co-sm-l2">
+            <div class="about_box">
+              <h2>À propos de GreenGrow<br>
+                <strong class="black"> Ferme et entreprise</strong></h2>
+              <br>
+              <p>Boostez vos rendements, réduisez vos coûts et gérez votre
+                exploitation avec précision grâce à notre technologie de pointe.
+                <br>
+                🔹Surveillance en temps réel<br>
+                Suivez l’humidité du sol, la température, et bien plus encore.<br>
+                🔹 Automatisation intelligente<br>
+                Activez l’irrigation et ajustez vos ressources en un clic.<br>
+                🔹 Économie d’eau et d’énergie<br>
+                Réduisez votre impact environnemental tout en augmentant votre
+                productivité.<br>
+                🔹Application mobile intuitive<br>
+                Accédez aux données de votre exploitation à tout moment, où que
+                vous soyez.<br>
+                📦 Découvrez nos capteurs innovants et révolutionnez votre façon
+                de cultiver !<br>
+                👉 Commandez dès maintenant et passez à l’agriculture du futur !</p>
+            </div>
+          </div>
+          <div class="col-xl-7 col-lg-7 col-md-7 co-sm-l2">
+            <div class="about_img">
+              <figure><img src="{{asset('images/about.jpg')}}" alt="img" style="margin-top: 250px;"></figure>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end about -->
+    <!-- for_box -->
+    <div class="for_box_bg">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-3 col-lg-3 col-md-3 co-sm-l2">
+            <div class="for_box"> <i><img src="{{asset('images/1.png')}}" alt="#"></i> <span>1996923</span>
+              <h3>Récolte</h3>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-3 co-sm-l2">
+            <div class="for_box"> <i><img src="{{asset('images/2.png')}}" alt="#"></i> <span>8000</span>
+              <h3>Unités de bétail</h3>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-3 co-sm-l2">
+            <div class="for_box"> <i><img src="{{asset('images/3.png')}}" alt="#"></i> <span>60002</span>
+              <h3>Ferme</h3>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-3 co-sm-l2">
+            <div class="for_box"> <i><img src="{{asset('images/4.png')}}" alt="#"></i> <span>1623</span>
+              <h3>Unités de Technique</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end for_box -->
+    <!-- offer -->
+    <div class="offer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="title">
+              <h2>Offres <strong class="black">Spéciales</strong></h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="offer-bg">
+        <div class="container">
+          <div class="row">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 ">
+              <div class="offer_box">
+                <h3>Agriculture connectée avec Farmers Edge</h3>
+                <figure><img src="{{asset('images/offer1.jpg')}}" alt="img"></figure>
+                <p>Cette technologie, développée par Farmers Edge, aide les
+                  agriculteurs à optimiser leur rendement grâce à la collecte et
+                  l’analyse de données en temps réel.</p>
+              </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 margin_ttt">
+              <div class="offer_box">
+                <h3>Écran de commande agricole avancé</h3>
+                <figure><img src="{{asset('images/offer2.jpg')}}" alt="img"></figure>
+                <p>Écran de contrôle en cabine affichant des données agricoles
+                  en temps réel (vitesse, semences, application par hectare,
+                  caméra). Il fait partie d’un système de gestion automatisé
+                  pour optimiser la précision et les performances agricoles.</p>
+              </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 margin-lkk">
+              <div class="offer_box">
+                <h3>Système de guidage StarFire 7000 de John Deere</h3>
+                <figure><img src="{{asset('images/offer3.jpg')}}"  alt="img"></figure>
+                <p>Un écran tactile de contrôle et un verrou de sécurité sont
+                  également visibles, indiquant une gestion optimisée et
+                  sécurisée des machines agricoles </p>
+              </div>
+            </div>
+            <div class="col-md-12"> <a class="read-more">Voir plus</a> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end offer -->
+    <!-- product -->
+    <div id="product" class="product">
+      <div class="container">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="title">
+                <h2>Nos <strong class="black"> Produits</strong></h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12">
+            <div class="row">
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="product_box">
+                  <figure><img src="{{asset('images/product_img1.jpg')}}" alt="#">
+                    <h3>Robot agricole autonome</h3>
+                  </figure>
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="product_box">
+                  <figure><img src="{{asset('images/product_img2.jpg')}}" alt="#">
+                    <h3>Capteur d’humidité et de température du sol </h3>
+                  </figure>
+                </div>
+              </div>
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="product_box">
+                  <figure><img src="{{asset('images/product_img4.jpg')}}" alt="#">
+                    <h3>Station météorologique agricole</h3>
+                  </figure>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="product_box">
+                  <figure><img src="{{asset('images/product_img3.jpg')}}" alt="#">
+                    <h3>PrecisionHawk</h3>
+                  </figure>
+                </div>
+              </div>
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="product_box">
+                  <figure><img src="{{asset('images/product_img5.jpg')}}" alt="#">
+                    <h3>Station météorologique connectée</h3>
+                  </figure>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end product -->
+    <!-- clients -->
+    <div id="testimonial" class="clients">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="title">
+              <h2>Avis de Client</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clients_red">
+      <div class="container">
+        <div id="testimonial_slider" class="carousel slide" data-ride="carousel">
+          <!-- Indicators -->
+          <ul class="carousel-indicators">
+            <li data-target="#testimonial_slider" data-slide-to="0" class=""><br>
+            </li>
+            <li data-target="#testimonial_slider" data-slide-to="1" class="active"><br>
+            </li>
+            <li data-target="#testimonial_slider" data-slide-to="2" class=""><br>
+            </li>
+          </ul>
+          <!-- The slideshow -->
+          <div class="carousel-inner">
+            <div class="carousel-item">
+              <div class="testomonial_section">
+                <div class="full testimonial_cont text_align_center cross_layout">
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 pa_right">
+                      <div class="testomonial_img"> <i><img src="{{asset('images/tes.jpg')}}"
+
+                            alt="#"></i> </div>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 pa_left">
+                      <div class="cross_inner">
+                        <h3>Johndue<br>
+                          <strong class="ornage_color">Farm &amp; CO</strong></h3>
+                        <p><img src="{{asset('icon/1.png')}}" alt="#">Grâce à cette solution
+                          de Smart Farming, nous avons considérablement amélioré
+                          la gestion de notre exploitation. Les capteurs nous
+                          fournissent des données précises sur l'humidité du sol
+                          et la météo, ce qui nous permet d'optimiser
+                          l'irrigation et de réduire le gaspillage d'eau. Un
+                          outil indispensable pour une agriculture moderne et
+                          efficace <img src="{{asset('icon/2.png')}}" alt="#"> </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item active">
+              <div class="testomonial_section">
+                <div class="full center"> </div>
+                <div class="full testimonial_cont text_align_center cross_layout">
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 pa_right">
+                      <div class="testomonial_img"> <i><img src="{{asset('images/tes1.png')}}"
+
+                            alt="#"></i> </div>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 pa_left">
+                      <div class="cross_inner">
+                        <h3>Dubois Sophie <br>
+                          <strong class="ornage_color">Farm &amp; CO</strong></h3>
+                        <p><img src="{{asset('icon/1.png')}}"alt="#">Depuis que nous
+                          utilisons cette technologie, nos cultures sont en bien
+                          meilleure santé. L'automatisation nous fait gagner du
+                          temps et nous permet de mieux planifier nos
+                          interventions. L'interface est simple à utiliser et
+                          les alertes en temps réel sont très pratiques. Je
+                          recommande sans hésiter ! <img src="{{asset('icon/2.png')}}" alt="#">
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="testomonial_section">
+                <div class="full center"> </div>
+                <div class="full testimonial_cont text_align_center cross_layout">
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 pa_right">
+                      <div class="testomonial_img"> <i><img src="{{asset('images/tes2.png')}}"
+
+                            alt="#"></i> </div>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 pa_left">
+                      <div class="cross_inner">
+                        <h3>Martin Julien<br>
+                          <strong class="ornage_color">Farm &amp; CO</strong></h3>
+                        <p><img src="{{asset('icon/1.png')}}" alt="#">Une vraie révolution
+                          pour notre ferme ! Ce système nous a aidés à optimiser
+                          nos récoltes et à réduire nos coûts. L’intelligence
+                          artificielle et les capteurs connectés nous donnent
+                          des informations précises qui facilitent la prise de
+                          décision. Un must-have pour les agriculteurs
+                          souhaitant innover ! <img src="{{asset('icon/2.png')}}" alt="#"> </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end clients -->
+    <!-- contact -->
+    <div id="contact" class="contact">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="title">
+              <h2>Contactez <strong class="black"> Nous</strong></h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid padddd">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 padddd">
+        <div class="map_section">
+          <div class="container">
+            <div class="row">
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <form class="main_form">
+                  <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12"> <input
+
+                        class="form-control" placeholder="Name" name="Name" type="text">
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12"> <input
+
+                        class="form-control" placeholder="Email" name="Email" type="text">
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12"> <input
+
+                        class="form-control" placeholder="Phone" name="Phone" type="text">
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12"> <textarea
+
+class="textarea" placeholder="Message" type="text" name="Message"></textarea> </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12"> <button
+
+                        class="send">Envoyer</button> </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div id="map"> </div>
+        </div>
+      </div>
+    </div>
+    <!-- end contact -->
+    <!-- footer -->
+    <!--  footer --> <footr>
+      <div class="footer top_layer ">
+        <div class="container">
+          <div class="row">
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+              <div class="address"> <a href="index.html"> <img src="{{asset('images/logo.png')}}"
+
+                    alt="logo" width="85" height="200"></a>
+                <p>Optimisez votre agriculture avec nos capteurs IoT
+                  intelligents</p>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+              <div class="address">
+                <h3>Liens rapides</h3>
+                <ul class="Links_footer">
+                  <li><img src="{{asset('icon/3.png')}}" alt="#"> <a href="#">Maintenance</a>
+                  </li>
+                  <li><img src="{{asset('icon/3.png')}}" alt="#"> <a href="#"> Join Us</a> </li>
+                  <li><img src="{{asset('icon/3.png')}}" alt="#"> <a href="#">Language Packs</a>
+                  </li>
+                  <li><img src="{{asset('icon/3.png')}}" alt="#"> <a href="#">LearnPress</a>
+                  </li>
+                  <li><img src="{{asset('icon/3.png')}}" alt="#"> <a href="#">Release Status</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+              <div class="address">
+                <h3>Subcribe email</h3>
+                <input class="form-control" placeholder="Your Email" name="Your Email"
+
+                  type="type"> <button class="submit-btn">Envoyer</button> </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+              <div class="address">
+                <h3>Contact Us</h3>
+                <ul class="loca">
+                  <li> <a href="#"><img src="{{asset('icon/loc.png')}}" alt="#"></a>Ghazela
+                    <br>
+                    Ariana Tunis</li>
+                  <li> <a href="#"><img src="{{asset('icon/email.png')}}" alt="#"></a>GreenGrow@gmail.com
+                    </li>
+                  <li> <a href="#"><img src="{{asset('icon/call.png')}}" alt="#"></a>+216
+                    25845846 </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        <div class="container">
+          <p>© 2025 All Rights Reserved. Design By<a href=""> Selim Gharbi</a></p>
+        </div>
+      </div>
+    </footr>
+
+
+      {% endblock %}
+
+  </body>
+</html>

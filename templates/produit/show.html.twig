@@ -1,0 +1,45 @@
+{% extends 'backend/indexbackend.html.twig' %}
+
+{% block title %}Produit{% endblock %}
+
+{% block body %}
+    <h1>Produit</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ produit.id }}</td>
+            </tr>
+            <tr>
+                <th>Id_produit</th>
+                <td>{{ produit.idProduit }}</td>
+            </tr>
+            <tr>
+                <th>Nom_produit</th>
+                <td>{{ produit.nomProduit }}</td>
+            </tr>
+            <tr>
+                <th>Description_produit</th>
+                <td>{{ produit.descriptionProduit }}</td>
+            </tr>
+            <tr>
+                <th>Prix_produit</th>
+                <td>{{ produit.prixProduit }}</td>
+            </tr>
+            <tr>
+                <th>Disponibilte_produit</th>
+                <td>{{ produit.disponibilteProduit }}</td>
+            </tr>
+            <tr>
+                <th>Image_produit</th>
+                <td><img src="{{ asset(produit.imageProduit) }}" alt="{{ produit.nomProduit }}" style="max-width: 100px;"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-secondary mt-3" href="{{ path('app_produit_index') }}">Back to list</a>
+    <a class="btn btn-primary mt-3" href="{{ path('app_produit_edit', {'id': produit.id}) }}">Edit</a>
+
+    {{ include('produit/_delete_form.html.twig') }}
+{% endblock %}
