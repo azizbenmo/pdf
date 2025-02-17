@@ -1,0 +1,168 @@
+{% extends 'backend/indexbackend.html.twig' %}
+
+{% block title %}Utilisateur index{% endblock %}
+
+{% block css %}
+{{ parent() }}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+<link rel="stylesheet" href="{{ asset('css/mdb.min.css') }}" />
+
+<style>
+    .table {
+        border: 3px solid #dee2e6 !important;
+        font-size: 1.1rem;
+    }
+
+    .table th {
+        font-weight: 800 !important;
+        font-size: 1.2rem;
+        background-color: #f1f3f5 !important;
+        border-bottom: 4px solid #dee2e6 !important;
+        padding: 1.2rem !important;
+    }
+
+    .table td {
+        padding: 1.2rem !important;
+        border-width: 2px 0 !important;
+        vertical-align: middle !important;
+    }
+
+    .table tr:not(:last-child) td {
+        border-bottom: 2px solid #dee2e6 !important;
+    }
+
+    .card {
+        border: 3px solid #dee2e6 !important;
+        border-radius: 12px !important;
+        overflow: hidden;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #f8f9fa !important;
+        transform: translateX(10px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .badge {
+        font-size: 1rem !important;
+        padding: 0.6em 1em !important;
+    }
+
+    .avatar-placeholder {
+        width: 45px;
+        height: 45px;
+        background-color: #f0f0f0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 500;
+        border-radius: 50%;
+    }
+
+    .btn1 {
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        background: #57b846;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    .btn1:hover {
+        background: #0f6100;
+        text-decoration: none;
+    }
+
+    .table-align-middle td, .table-align-middle th {
+        vertical-align: middle !important;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Liste des Utilisateurs</h1>
+
+    <div class="mb-4">
+        <a href="{{ path('app_utilisateur_new') }}" class="btn1">
+            <i class="fas fa-plus-circle me-2"></i>Créer un nouvel utilisateur
+        </a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <div class="card shadow-sm" style="width: 1000px; margin: 0 auto;">
+                <table class="table align-middle mb-0 table-hover">
+                    <thead class="bg-light">
+                        <tr>
+                            <th>Utilisateur</th>
+                            <th>Email</th>
+                            <th>Rôle</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for utilisateur in utilisateurs %}
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar-placeholder rounded-circle me-3">
+                                        {{ utilisateur.getPrenomUser()|first|upper }}{{ utilisateur.getNomUser()|first|upper }}
+                                    </div>
+                                    <div>
+                                        <p class="fw-bold mb-1">{{ utilisateur.getPrenomUser() }} {{ utilisateur.getNomUser() }}</p>
+                                        <p class="text-muted mb-0">ID: {{ utilisateur.getIdUser() }}</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="mb-0">{{ utilisateur.getEmailUser() }}</p>
+                            </td>
+                            <td>
+                                <span class="badge rounded-pill 
+                                    {% if utilisateur.getRoleUser() == 'admin' %}bg-success
+                                    {% elseif utilisateur.getRoleUser() == 'client' %}bg-info
+                                    {% elseif utilisateur.getRoleUser() == 'vendeur' %}bg-danger
+                                    {% else %}bg-warning
+                                    {% endif %}">
+                                    {{ utilisateur.getRoleUser()|capitalize }}
+                                </span>
+                            </td>
+                            <td>
+                                <div class="d-flex gap-2">
+                                    <a href="{{ path('app_utilisateur_show', {'id_user': utilisateur.getIdUser() }) }}" 
+                                       class="btn btn-link text-primary p-2">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="{{ path('app_utilisateur_edit', {'id_user': utilisateur.getIdUser() }) }}" 
+                                       class="btn btn-link text-warning p-2">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <form method="post" 
+                                          action="{{ path('app_utilisateur_delete', {'id_user': utilisateur.getIdUser() }) }}"
+                                          onsubmit="return confirm('Êtes-vous sûr ?')">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ utilisateur.getIdUser() ) }}">
+                                        <button class="btn btn-link text-danger p-2">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4" class="text-center py-4">Aucun utilisateur trouvé</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div> 
+        </div>
+    </div>
+</div>
+{% endblock %}
