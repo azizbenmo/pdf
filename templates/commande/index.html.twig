@@ -1,0 +1,41 @@
+{% extends 'backend/indexbackend.html.twig' %}
+
+{% block title %}Commande index{% endblock %}
+
+{% block body %}
+    <h1>Commande index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdCommande</th>
+                <th>StatutCommande</th>
+                <th>DateCommande</th>
+                <th>Produit</th>
+                <th>Prix</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for commande in commandes %}
+            <tr>
+                <td>{{ commande.getIdCommande() }}</td>
+                <td>{{ commande.getStatutCommande() }}</td>
+                <td>{{ commande.getdateCommande() ? commande.dateCommande|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ commande.getProduit() }}</td>
+                <td>{{ commande.getPrix() }}</td>
+                <td>
+                    <a href="{{ path('app_commande_show', {'idCommande': commande.idCommande}) }}">show</a>
+                    <a href="{{ path('app_commande_edit', {'idCommande': commande.idCommande}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_commande_new') }}">Create new</a>
+{% endblock %}

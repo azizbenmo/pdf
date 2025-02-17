@@ -1,0 +1,51 @@
+{{ form_start(form, {'attr': {'id': 'commandeForm'}}) }}
+
+    <div class="mb-3">
+        {{ form_label(form.produit, 'Produit') }}
+        {{ form_widget(form.produit, {'attr': {'class': 'form-control'}}) }}
+        <div class="text-danger">{{ form_errors(form.produit) }}</div>
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.prix, 'Prix') }}
+        {{ form_widget(form.prix, {'attr': {'class': 'form-control', 'type': 'number'}}) }}
+        <div class="text-danger">{{ form_errors(form.prix) }}</div>
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.dateCommande, 'Date de commande') }}
+        {{ form_widget(form.dateCommande, {'attr': {'class': 'form-control', 'type': 'date'}}) }}
+        <div class="text-danger">{{ form_errors(form.dateCommande) }}</div>
+    </div>
+
+    <div class="d-flex justify-content-between">
+        <a href="{{ path('app_commande_index') }}" class="btn btn-outline-secondary">Retour</a>
+        <button type="submit" class="btn btn-success">Enregistrer</button>
+    </div>
+
+{{ form_end(form) }}
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("commandeForm");
+    form.addEventListener("submit", function (event) {
+        let isValid = true;
+        const fields = form.querySelectorAll(".form-control");
+
+        fields.forEach(field => {
+            const errorDiv = field.nextElementSibling;
+            if (field.value.trim() === "") {
+                errorDiv.textContent = "Ce champ est obligatoire.";
+                errorDiv.classList.add("text-danger");
+                isValid = false;
+            } else {
+                errorDiv.textContent = "";
+            }
+        });
+
+        if (!isValid) {
+            event.preventDefault();
+        }
+    });
+});
+</script>

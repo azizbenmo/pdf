@@ -1,0 +1,25 @@
+<form method="post" action="{{ path('app_livreur_new') }}">
+    {{ form_start(form) }}
+
+    {% for field in form %}
+        <div class="mb-3">
+            <label for="{{ field.id }}" class="form-label">{{ field.vars.label }}</label>
+            {{ form_widget(field, { 'attr': {'class': 'form-control'} }) }}
+            
+            {% if field.vars.errors|length > 0 %}
+                <div class="text-danger">
+                    {% for error in field.vars.errors %}
+                        <p>{{ error.message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+    
+    <div class="d-flex justify-content-between mt-4">
+        <a href="{{ path('app_livreur_index') }}" class="btn btn-outline-secondary">Back to list</a>
+        <button type="submit" class="btn btn-success">Create Livreur</button>
+    </div>
+
+    {{ form_end(form) }}
+</form>

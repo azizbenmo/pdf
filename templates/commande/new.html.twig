@@ -1,0 +1,111 @@
+{% extends 'backend/indexbackend.html.twig' %}
+
+{% block body %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}GreenGrow{% endblock %}</title>
+
+    {% block css %}
+    <link rel="stylesheet" href="{{ asset('vendor/mdi/css/materialdesignicons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/flag-icon-css/css/flag-icons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/css/vendor.bundle.base.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="{{ asset('vendor/font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('vendor/bootstrap-datepicker/bootstrap-datepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/vertical-light-layout/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/agriculture-iot-style.css') }}">
+    {% endblock %}
+
+    <link rel="shortcut icon" href="{{ asset('images/logo.jpg') }}" />
+</head>
+
+<body style="background-color: #f7f8fa;">
+    <div class="container-scroller">
+        <nav class="navbar navbar-expand-lg navbar-light bg-success fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand text-white" href="#">
+                    <img src="{{ asset('images/logo.png') }}" alt="logo" style="width: 100px;">
+                    GreenGrow IoT
+                </a>
+            </div>
+        </nav>
+
+        <div class="container-fluid page-body-wrapper">
+            <div class="main-panel">
+                <div class="content-wrapper d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+
+                    <div class="card shadow-lg p-5 rounded" style="max-width: 600px; width: 100%; background-color: #ffffff; box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);">
+                        <div class="card-body">
+                            <h4 class="card-title text-center mb-4" style="font-size: 1.75rem; color: #2e8b57;">Create New Commande</h4>
+
+                            <!-- Alertes de succès et d'erreur -->
+                            {% for message in app.flashes('success') %}
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+
+                            {% for message in app.flashes('error') %}
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+
+                            <!-- Formulaire -->
+                            {{ form_start(form) }}
+                            <div class="mb-3">
+                                {{ form_label(form.produit, 'Produit') }}
+                                {{ form_widget(form.produit, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.produit) }}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form_label(form.prix, 'Prix') }}
+                                {{ form_widget(form.prix, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.prix) }}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form_label(form.dateCommande, 'Date de commande') }}
+                                {{ form_widget(form.dateCommande, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.dateCommande) }}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form_label(form.livreur, 'Livreur') }}
+                                {{ form_widget(form.livreur, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.livreur) }}
+                            </div>
+
+                            <div class="d-flex justify-content-between">
+                                <a href="{{ path('app_commande_index') }}" class="btn btn-outline-secondary">Back to list</a>
+                                <button type="submit" class="btn btn-success">Create Commande</button>
+                            </div>
+                            {{ form_end(form) }}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% block js %}
+    <script src="{{ asset('vendor/js/vendor.bundle.base.js') }}"></script>
+    <script src="{{ asset('vendor/chart.js/chart.umd.js') }}"></script>
+    <script src="{{ asset('vendor/jquery-circle-progress/js/circle-progress.min.js') }}"></script>
+    <script src="{{ asset('js/misc.js') }}"></script>
+    <script src="{{ asset('js/dashboard.js') }}"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    {% endblock %}
+</body>
+</html>
+{% endblock %}

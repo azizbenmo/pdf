@@ -1,0 +1,43 @@
+{% extends 'backend/indexbackend.html.twig' %}
+
+{% block title %}Livreur index{% endblock %}
+
+{% block body %}
+    <h1>Livreur index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id_livreur</th>
+                <th>Nom_livreur</th>
+                <th>Prenom_livreur</th>
+                <th>Mail_livreur</th>
+                <th>Telephone_livreur</th>
+                <th>Disponible</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for livreur in livreurs %}
+            <tr>
+                <td>{{ livreur.getIdLivreur() }}</td>  {# Correction ici #}
+                <td>{{ livreur.getNomLivreur() }}</td>  {# Correction ici #}
+                <td>{{ livreur.getPrenomLivreur() }}</td>  {# Correction ici #}
+                <td>{{ livreur.getMailLivreur() }}</td>  {# Correction ici #}
+                <td>{{ livreur.getTelephoneLivreur() }}</td>  {# Correction ici #}
+                <td>{{ livreur.disponible ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_livreur_show', {'id_livreur': livreur.id_livreur}) }}">show</a>
+                    <a href="{{ path('app_livreur_edit', {'id_livreur': livreur.id_livreur}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_livreur_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'backend/indexbackend.html.twig' %}
+
+{% block title %}Livreur{% endblock %}
+
+{% block body %}
+    <h1>Details du Livreur</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id du livreur</th>
+                <td>{{ livreur.getIdLivreur() }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ livreur.getNomLivreur() }}</td>
+            </tr>
+            <tr>
+                <th>Prénom</th>
+                <td>{{ livreur.getPrenomLivreur() }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ livreur.getMailLivreur() }}</td>
+            </tr>
+            <tr>
+                <th>Téléphone</th>
+                <td>{{ livreur.getTelephoneLivreur() }}</td>
+            </tr>
+            <tr>
+                <th>Disponible</th>
+                <td>{{ livreur.isDisponible() ? 'Oui' : 'Non' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Commandes Associées</h2>
+    {% if commandes is empty %}
+        <p>Aucune commande associée à ce livreur.</p>
+    {% else %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id de la commande</th>
+                    <th>Statut de la commande</th>
+                    <th>Date de la commande</th>
+                    <th>Produit</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for commande in commandes %}
+                    <tr>
+                        <td>{{ commande.getIdCommande() }}</td>
+                        <td>{{ commande.getStatutCommande() }}</td>
+                        <td>{{ commande.getDateCommande()|date('Y-m-d') }}</td>
+                        <td>{{ commande.getProduit() }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+    <a href="{{ path('app_livreur_index') }}">Retour à la liste des livreurs</a>
+{% endblock %}

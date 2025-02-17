@@ -1,0 +1,131 @@
+{% extends 'backend/indexbackend.html.twig' %}
+
+{% extends 'backend/indexbackend.html.twig' %}
+
+{% block body %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- CSS Plugins -->
+    {% block css %}
+    <link rel="stylesheet" href="{{ asset('vendor/mdi/css/materialdesignicons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/flag-icon-css/css/flag-icons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/css/vendor.bundle.base.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="{{ asset('vendor/font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('vendor/bootstrap-datepicker/bootstrap-datepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/vertical-light-layout/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/agriculture-iot-style.css') }}">
+    {% endblock %}
+
+    <link rel="shortcut icon" href="{{ asset('images/logo.jpg') }}" />
+  </head>
+
+  <body style="background-color: #f7f8fa;">
+
+    <div class="container-scroller">
+
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-success fixed-top">
+        <div class="container-fluid">
+          <a class="navbar-brand text-white" href="#">
+            <img src="{{ asset('images/logo.png') }}" alt="logo" style="width: 100px;">
+            GreenGrow IoT
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link text-white" href="{{ path('app_commande_index') }}">
+                  <i class="mdi mdi-cart"></i> Commandes
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="#">
+                  <i class="mdi mdi-logout"></i> Log Out
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Sidebar -->
+      <div class="container-fluid page-body-wrapper">
+        <nav class="sidebar sidebar-offcanvas" id="sidebar" style="background-color: #2f3d4c;">
+          <ul class="nav">
+            <li class="nav-item nav-category text-white">Main</li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{{ path('app_commande_index') }}">
+                <span class="icon-bg"><i class="mdi mdi-cart menu-icon"></i></span>
+                <span class="menu-title">Commandes</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="main-panel">
+          <div class="content-wrapper d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+            
+            <!-- Form Card -->
+            <div class="card shadow-lg p-5 rounded" style="max-width: 600px; width: 100%; background-color: #ffffff; box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);">
+              <div class="card-body">
+                <h4 class="card-title text-center mb-4" style="font-size: 1.75rem; color: #2e8b57;">Create New Livreur</h4>
+
+                <!-- Success or Error Alert -->
+                {% if app.session.flashBag.has('success') %}
+                    <div class="alert alert-success">
+                        {% for message in app.session.flashBag.get('success') %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                
+                {% if app.session.flashBag.has('error') %}
+                    <div class="alert alert-danger">
+                        {% for message in app.session.flashBag.get('error') %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                
+                <!-- Form Section -->
+                {{ include('livreur/_form.html.twig') }}
+                
+                <div class="d-flex justify-content-between mt-4">
+                  <a href="{{ path('app_livreur_index') }}" class="btn btn-outline-secondary">Back to list</a>
+                  <button type="submit" class="btn btn-success">Create Livreur</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- JS Plugins -->
+    {% block js %}
+    <script src="{{ asset('vendor/js/vendor.bundle.base.js') }}"></script>
+    <script src="{{ asset('vendor/chart.js/chart.umd.js') }}"></script>
+    <script src="{{ asset('vendor/jquery-circle-progress/js/circle-progress.min.js') }}"></script>
+    <script src="{{ asset('js/misc.js') }}"></script>
+    <script src="{{ asset('js/dashboard.js') }}"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    {% endblock %}
+    
+  </body>
+
+</html>
+{% endblock %}
+
