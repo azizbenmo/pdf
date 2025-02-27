@@ -21,12 +21,15 @@
                 <div class="login100-pic js-tilt" data-tilt>
                     <img src="{{asset('images/img-01.png') }}" alt="IMG">
                 </div>
+                <form method="post" action="{{ path('app_login') }}" class="login100-form validate-form">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
 
-                <form class="login100-form validate-form">
                     <span class="login100-form-title">Member Login</span>
 
                     <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                        <input class="input100" type="text" name="email" placeholder="Email">
+                        <input class="input100" type="text" id="email_user" name="email_user" placeholder="Email" value="{{ last_username }}" required autofocus >
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -34,7 +37,11 @@
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
-                        <input class="input100" type="password" name="pass" placeholder="Password">
+                        <input class="input100" type="password" name="mot_de_passe_user" id="mot_de_passe_user"  placeholder="Password" required>
+
+
+
+
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-lock" aria-hidden="true"></i>

@@ -46,6 +46,50 @@
 .modal-body .container-login100 {
     min-height: auto;
 }
+/* Style de base */
+.user-select {
+    background-color: white;
+    color: #333;
+    font-size: 14px;
+    padding: 8px 12px;
+    border: 2px solid #28a745; /* Bordure verte pour correspondre au bouton */
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+    appearance: none; /* Supprime l'apparence par défaut */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    position: relative;
+}
+
+/* Ajout d'une icône flèche personnalisée */
+.user-select-container {
+    position: relative;
+    display: inline-block;
+}
+
+.user-select-container::after {
+    content: "▼"; /* Petite flèche vers le bas */
+    font-size: 12px;
+    color: #28a745;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+/* Effet au survol */
+.user-select:hover {
+    border-color: #218838;
+}
+
+/* Effet au focus */
+.user-select:focus {
+    border-color: #1e7e34;
+    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+}
+
       </style>
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     <!-- style css -->
@@ -67,6 +111,93 @@
     <link rel="stylesheet" href="{{ asset('vendor/select2/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/util.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <style>
+    .user-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px; /* Largeur du cercle */
+    height: 40px; /* Hauteur du cercle */
+    border-radius: 50%; /* Pour rendre le cercle */
+    background-color: white; /* Couleur de fond du cercle */
+    color: black; /* Couleur du texte */
+    font-weight: bold; /* Gras pour les initiales */
+    border: 2px solid #ccc; /* Bordure autour du cercle, facultatif */
+    
+    }
+
+.initials {
+    font-size: 18px; /* Taille des initiales */
+}
+
+
+
+.location_icon_bottum_tt ul {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 15px; /* Espacement entre les éléments */
+    list-style: none;
+    padding: 0;
+      color:black;
+
+}
+
+.location_icon_bottum_tt ul li {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.user-circle {
+
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    border: 2px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center ;
+    font-size: 16px;
+}
+
+.send {
+    background-color: #28a745; /* Vert pour correspondre au thème */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.send:hover {
+    background-color: #218838;
+}
+
+.menu-area-main li a {
+    font-size: 16px; /* Augmenter la taille de la police */
+    color: #333; /* Couleur sombre pour plus de contraste */
+    transition: color 0.3s; /* Transition douce pour l'effet de survol */
+}
+
+.menu-area-main li a:hover {
+    color: #28a745; /* Couleur verte au survol */
+    text-decoration: underline; /* Soulignement au survol */
+}
+.client-link {
+    font-weight: bold; /* Gras pour mettre en évidence */
+    color: #333; /* Couleur sombre */
+}
+
+.client-link:hover {
+    color: #28a745; /* Couleur verte au survol */
+    text-decoration: underline; /* Soulignement au survol */
+}
+    </style>
+
       {% endblock %} 
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
@@ -181,6 +312,16 @@ $(document).ready(function() {
       {% block body %}
       
    <body class="main-layout ">
+     <div class="container">
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+
     <!-- loader 
     <div class="loader_bg">        <div class="loader"><img src="images/loading.gif" alt="#" /></div> -->
     <!-- end loader -->
@@ -200,35 +341,46 @@ $(document).ready(function() {
               </div>
             </div>
             <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
-              <div class="location_icon_bottum_tt">
-                <ul>
-                  <li><img src="{{asset('icon/email1.png')}}">GreenGrow@gmail.com</li>
-                  <li><img src="{{asset('icon/call1.png')}}">(+216) 25845846</li>
-                  <li>
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12"> <button
+          <div class="location_icon_bottum_tt" >
+               <ul class="d-flex align-items-center">
+    <li><img src="{{asset('icon/email1.png')}}"> GreenGrow@gmail.com</li>
+    <li><img src="{{asset('icon/call1.png')}}"> (+216) 25845846</li>
+    <li class="d-flex align-items-center">
+    {% if app.user %}
+        <span class="user-circle d-flex justify-content-center align-items-center">
+            <span class="initials">{{ app.user.getNomUser()|slice(0, 1) }}{{ app.user.getPrenomUser()|slice(0, 1) }}</span>
+        </span>
+        <a href="{{ path('app_logout') }}" class="send ml-3">Déconnexion</a>
+    {% else %}
+        <button class="send ml-3" data-toggle="modal" data-target="#loginModal">
+            Connexion
+        </button>
+    {% endif %}
+</li>
 
-                        class="send" data-toggle="modal" data-target="#loginModal" style="width: 120px; margin-left: 700px; margin-top: -100px; height: 60px;">
-                          Connexion</button>
-                  
+</ul>
 
-                    </div>
-                    
-                    
-                  </li>
-                </ul>
-              </div>
+            
+            </div>
+           
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-12 location_icon_bottum" style="margin-top: -68px; height: 69px;">
-              <div class="row"> 
+          <div class="row"style="margin-top: -20px; " >
+            <div class="col-md-12 location_icon_bottum" >
+              <div class="row" > 
                 <div class="col-md-8 ">
                   <div class="menu-area">
                     <div class="limit-box">
                       <nav class="main-menu">
                         <ul class="menu-area-main">
                           <li class="active"> <a href="{{ path('app_user') }}">Home</a> </li>
-                          <li> <a href="{{ path('app_inscription') }}">Inscription</a> </li>
+                        <li><a href="#">Inscription</a>
+                                            <ul >
+                                                <li style="color:black"><a href="{{ path('app_inscription_vendeur') }}" class="client-link" style="color:black !important">Vendeur</a></li>
+<li >
+<a href="{{ path('app_inscription') }}" class="client-link" style="color:black !important">Client</a></li>
+                                            </ul>
+                                        </li>                          
                           <li><a href="#product">Products</a></li>
                           <li><a href="#testimonial">Testimonial</a></li>
                           <li><a href="#contact">Contact Us</a></li>
@@ -250,6 +402,7 @@ $(document).ready(function() {
       </div>
       <!-- end header inner --> </header>
     <!-- end header -->
+    
     {% block section %} 
 {% endblock %}
 
@@ -258,6 +411,7 @@ $(document).ready(function() {
     <!--  footer --> <footr>
       <div class="footer top_layer ">
         <div class="container">
+        
           <div class="row">
             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
               <div class="address"> <a href="index.html"> <img src="{{asset('images/logo.png')}}"
@@ -329,13 +483,14 @@ $(document).ready(function() {
                                 <img src="{{ asset('images/img-01.png') }}" alt="IMG">
                             </div>
 
-                            <form class="login100-form validate-form" method="post" action="{{ path('app_login') }}">
+                <form method="post" action="{{ path('app_login') }}" class="login100-form validate-form">
+
                                 <span class="login100-form-title">Connexion</span>
 
                                
 
                                 <div class="wrap-input100 validate-input" data-validate="Email requis">
-                                    <input class="input100" type="email" placeholder="Email" name="email" required autofocus>
+                        <input class="input100" type="text" id="email_user" name="email_user" placeholder="Email"  required autofocus >
                                     <span class="focus-input100"></span>
                                     <span class="symbol-input100">
                                         <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -343,7 +498,7 @@ $(document).ready(function() {
                                 </div>
 
                                 <div class="wrap-input100 validate-input" data-validate="Mot de passe requis">
-                                    <input class="input100" type="password" placeholder="Password" name="password" required>
+                        <input class="input100" type="password" name="mot_de_passe_user" id="mot_de_passe_user"  placeholder="Password" required>
                                     <span class="focus-input100"></span>
                                     <span class="symbol-input100">
                                         <i class="fa fa-lock" aria-hidden="true"></i>
@@ -359,7 +514,7 @@ $(document).ready(function() {
                                 </div>
 
                                 <div class="text-center p-t-12">
-                                    <a class="txt2" href="#">
+                                    <a class="txt2" href="{{ path('app_forgetpassword') }}">
                                         Mot de passe oublié ?
                                     </a>
                                 </div>
@@ -379,7 +534,6 @@ $(document).ready(function() {
 
     </div> </center>
 </div>
-
 
 
   </body>

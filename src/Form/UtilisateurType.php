@@ -9,6 +9,8 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 
 class UtilisateurType extends AbstractType
 {
@@ -38,6 +40,16 @@ class UtilisateurType extends AbstractType
             ])
             ->add('Telephone_user', TextType::class, [
                 'label' => 'Téléphone',
+            ])
+            ->add('role_user', ChoiceType::class, [
+                'label' => 'Rôle',
+                'choices' => [
+                    'Admin' => 'ROLE_ADMIN',
+                    'Client' => 'ROLE_CLIENT',
+                    'Vendeur' => 'ROLE_VENDOR',
+                ],
+                'multiple' => false,
+                'expanded' => true,
             ])
         ;
     }
