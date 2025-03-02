@@ -51,6 +51,7 @@ class UtilisateurType extends AbstractType
                 'multiple' => false,
                 'expanded' => true,
             ])
+            
         ;
     }
 
