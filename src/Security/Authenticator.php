@@ -32,18 +32,22 @@ class Authenticator extends AbstractLoginFormAuthenticator
         $this->utilisateurRepository = $utilisateurRepository;
         $this->passwordHasher = $passwordHasher;
     }
-
     public function authenticate(Request $request): Passport
     {
         $emailUser = $request->get('email_user');
         $request->getSession()->set(SecurityRequestAttributes::LAST_USERNAME, $emailUser);
-        
+    
+        // Récupérer l'utilisateur
+        $user = $this->utilisateurRepository->findOneBy(['email_user' => $emailUser]);
+    
+        // Vérifier si l'utilisateur existe et s'il est actif
+        if (!$user || !$user->getIsActive()) {
+            throw new \Exception('Votre compte est désactivé. Veuillez contacter l\'administrateur.');
+        }
     
         return new Passport(
             new UserBadge($emailUser, function ($userIdentifier) {
                 return $this->utilisateurRepository->findOneBy(['email_user' => $userIdentifier]);
-                dump($user);
-                exit;
             }),
             new PasswordCredentials($request->get('mot_de_passe_user')),
             [
@@ -59,6 +63,7 @@ class Authenticator extends AbstractLoginFormAuthenticator
     {
         
         $user = $token->getUser();
+       
 
         if (in_array('ROLE_ADMIN', $user->getRoles())) {
             return new RedirectResponse($this->urlGenerator->generate('homeback')); // Page admin

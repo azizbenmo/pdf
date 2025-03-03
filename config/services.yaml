@@ -1,25 +1,56 @@
-# This file is the entry point to configure your own services.
-# Files in the packages/ subdirectory configure your dependencies.
-
-# Put parameters here that don't need to change on each machine where the app is deployed
-# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
-
 parameters:
-    APP_URL: '%env(APP_URL)%'
+  images_directory: "%kernel.project_dir%/public/uploads/images"
+  recaptcha_site_key: '%env(RECAPTCHA_SITE_KEY)%'
+  recaptcha_secret_key: '%env(RECAPTCHA_SECRET_KEY)%'
+
 services:
-    # default configuration for services in *this* file
-    _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+  App\Security\UserActiveListener:
+        tags:
+            - { name: kernel.event_subscriber }
+  _defaults:
+    autowire: true
+    autoconfigure: true
 
-    # makes classes in src/ available to be used as services
-    # this creates a service per class whose id is the fully-qualified class name
-    App\:
-        resource: '../src/'
-        exclude:
-            - '../src/DependencyInjection/'
-            - '../src/Entity/'
-            - '../src/Kernel.php'
+  App\:
+    resource: "../src/"
+    exclude:
+      - "../src/DependencyInjection/"
+      - "../src/Entity/"
+      - "../src/Kernel.php"
+  App\Twig\RecaptchaExtension:
+    arguments:
+            $recaptchaSiteKey: '%recaptcha_site_key%'
+            $recaptchaSecretKey: '%recaptcha_secret_key%'
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+  App\Twig\AppExtension:
+    tags: ['twig.extension']
+
+    # Configuration du service HuggingFace
+  App\Service\HuggingFaceService:
+    arguments:
+            $apiKey: '%env(HUGGINGFACE_API_KEY)%'
+
+    # Configuration du logger pour HuggingFace
+  monolog.logger.huggingface:
+    class: Symfony\Bridge\Monolog\Logger
+    arguments:
+            $name: 'huggingface'
+    calls:
+            - method: pushHandler
+              arguments:
+                  - '@monolog.handler.huggingface'
+
+  monolog.handler.huggingface:
+    class: Monolog\Handler\RotatingFileHandler
+    arguments:
+            $filename: '%kernel.logs_dir%/huggingface.log'
+            $maxFiles: 10
+    calls:
+            - method: setFormatter
+              arguments:
+                  - '@monolog.formatter.huggingface'
+
+  monolog.formatter.huggingface:
+    class: Monolog\Formatter\LineFormatter
+    arguments:
+            $format: "[%%datetime%%] %%channel%%.%%level_name%%: %%message%% %%context%% %%extra%%\n"
