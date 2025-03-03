@@ -1,0 +1,97 @@
+<style>
+.send {
+    background-color: #28a745; /* Vert pour correspondre au thème */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.send:hover {
+    background-color: #218838;
+}
+</style>
+<header>
+      <!-- header inner -->
+      <div class="header">
+        <div class="container" style="height: 76px;">
+          <div class="row">
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col logo_section">
+              <div class="full">
+                <div class="center-desk">
+                  <div class="logo"> <a href="index.html"><img src="{{asset('images/logo.png')}}"
+
+                        alt="#" width="85" height="200"></a> </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+          <div class="location_icon_bottum_tt" >
+               <ul class="d-flex align-items-center">
+    <li><img src="{{asset('icon/email1.png')}}"> GreenGrow@gmail.com</li>
+    <li><img src="{{asset('icon/call1.png')}}"> (+216) 25845846</li>
+    <li class="d-flex align-items-center">
+    {% if app.user %}
+        <span class="user-circle d-flex justify-content-center align-items-center">
+            <span class="initials">{{ app.user.getNomUser()|slice(0, 1) }}{{ app.user.getPrenomUser()|slice(0, 1) }}</span>
+        </span>
+        <a href="{{ path('app_logout') }}" class="send ml-3">Déconnexion</a>
+    {% else %}
+        <button class="send ml-3" data-toggle="modal" data-target="#loginModal">
+            Connexion
+        </button>
+    {% endif %}
+</li>
+
+</ul>
+
+            
+            </div>
+           
+            </div>
+          </div>
+          <div class="row"style="margin-top: -20px; " >
+            <div class="col-md-12 location_icon_bottum" >
+              <div class="row" > 
+                <div class="col-md-8 ">
+                  <div class="menu-area">
+                    <div class="limit-box">
+                      <nav class="main-menu">
+                        <ul class="menu-area-main">
+                          <li class="active"> <a href="{{ path('app_user') }}">Home</a> </li>
+                              {% if app.user %}
+<li class="active"><a href="{{ path('app_utilisateur_edit_profile', { 'id_user': app.user.idUser }) }}"  class="active">Modifier le profil</a> </li>
+                              {% else %}
+                        <li ><a href="#">Inscription</a>
+                                            <ul >
+                                                <li style="color:black"><a href="{{ path('app_inscription_vendeur') }}" class="client-link" style="color:black !important">Vendeur</a></li>
+<li >
+<a href="{{ path('app_inscription') }}" class="client-link" style="color:black !important">Client</a></li>
+                                            </ul>
+                                        </li>    
+                              {% endif %}                      
+                          <li><a href="#product">Products</a></li>
+                           {% if app.user %}
+                            <li  class="active">
+                        <a href="{{ path('app_frendu', { 'id_user': app.user.idUser }) }}">Supervision</a></li>
+                        {% endif %} 
+                              
+                          <li><a href="{{ path('app_feed') }}">Contact Us</a></li>
+                        </ul>
+                      </nav>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                  <form class="search"> <input class="form-control" placeholder="Search"
+
+                      type="text"> <button><img src="{{asset('images/search_icon.png')}}"></button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end header inner --> </header>

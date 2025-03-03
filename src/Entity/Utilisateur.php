@@ -7,8 +7,10 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\UtilisateurRepository;
-#[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
+#[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
 class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -58,21 +60,52 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string')]
     private string $role_user = 'ROLE_CLIENT';
-        #[ORM\Column(type: "boolean")]
+
+    #[ORM\Column(type: 'boolean')]
     private bool $isActive = true;
 
-   
-
-
-   
+    #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Reclamation::class)]
+    private Collection $reclamations;
+    
     public function __construct()
     {
-        $this->role_user = 'ROLE_CLIENT'; // Valeur par défaut
+        $this->role_user = 'ROLE_CLIENT';
+        $this->reclamations = new ArrayCollection();
+    }
+
+    public function getReclamations(): Collection
+    {
+        return $this->reclamations;
+    }
+
+    public function addReclamation(Reclamation $reclamation): self
+    {
+        if (!$this->reclamations->contains($reclamation)) {
+            $this->reclamations->add($reclamation);
+            $reclamation->setUtilisateur($this);
+        }
+        return $this;
+    }
+
+    public function removeReclamation(Reclamation $reclamation): self
+    {
+        if ($this->reclamations->removeElement($reclamation)) {
+            if ($reclamation->getUtilisateur() === $this) {
+                $reclamation->setUtilisateur(null);
+            }
+        }
+        return $this;
     }
 
     public function getIsActive(): bool
     {
         return $this->isActive;
+    }
+    
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
+        return $this;
     }
 
     public function getRoles(): array
@@ -83,12 +116,6 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     public function getUserIdentifier(): string
     {
         return $this->email_user;
-    }
-
-    public function setIsActive(bool $isActive): self
-    {
-        $this->isActive = $isActive;
-        return $this;
     }
 
     public function getIdUser(): ?int
@@ -208,6 +235,5 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function eraseCredentials(): void
     {
-        // Suppression des données sensibles si nécessaire
     }
 }

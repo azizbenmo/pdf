@@ -2292,3 +2292,528 @@ border-radius: 10px;
 .special-page .relative  {text-align:center !important; }
 
 .special-page .footer {margin-top: 90px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Plant Card Styling */
+.plant-card {
+     background: #ffffff;
+     border: 1px solid #e0e0e0;
+     border-radius: 12px;
+     padding: 20px;
+     margin: 5px; /* Reduced margin */
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+     transition: transform 0.3s ease, box-shadow 0.3s ease;
+     width: 300px;
+     text-align: center;
+     position: relative;
+     overflow: hidden;
+ }
+ 
+ .plant-card:hover {
+     transform: translateY(-10px);
+     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+ }
+ 
+ .plant-card h2 {
+     font-size: 24px;
+     margin-bottom: 10px;
+     color: #052501;
+     font-weight: 600;
+ }
+ 
+ .plant-card h3 {
+     font-size: 18px;
+     color: #666;
+     margin-bottom: 15px;
+     font-weight: 500;
+ }
+ 
+ .plant-card .overview p {
+     margin: 8px 0;
+     font-size: 16px;
+     color: #444;
+ }
+ 
+ /* Status Alerts */
+ .status-alert {
+     margin-top: 15px;
+     padding: 10px;
+     border-radius: 8px;
+     text-align: center;
+     font-size: 14px;
+     font-weight: 500;
+ }
+ 
+ .alert-danger {
+     background-color: #ffebee;
+     color: #c62828;
+     border: 1px solid #c62828;
+ }
+ 
+ .alert-success {
+     background-color: #e8f5e9;
+     color: #2e7d32;
+     border: 1px solid #2e7d32;
+ }
+ 
+ /* Critical Situation (Red Card) */
+ .plant-card.critical {
+     background-color: #ffebee;
+     border-color: #c62828;
+ }
+ 
+ .plant-card.critical h2 {
+     color: #c62828;
+ }
+ 
+ /* Safe Situation (Green Card) */
+ .plant-card.safe {
+     background-color: #e8f5e9;
+     border-color: #2e7d32;
+ }
+ 
+ .plant-card.safe h2 {
+     color: #2e7d32;
+ }
+ 
+ /* Add Plant Button */
+ .add-plant-btn {
+     background-color: #0e2903;
+     color: white;
+     border: none;
+     border-radius: 25px;
+     padding: 10px 20px;
+     font-size: 16px;
+     cursor: pointer;
+     transition: background-color 0.3s ease, transform 0.3s ease;
+     display: inline-block;
+     margin-top: 5px;
+ }
+ 
+ .add-plant-btn:hover {
+     background-color: #3a9d0e;
+     transform: scale(1.05);
+ }
+ 
+ /* Delete Button */
+ .Delete-btn {
+     background-color: #4a4949;
+     color: white;
+     border: none;
+     border-radius: 25px;
+     padding: 8px 16px;
+     font-size: 14px;
+     cursor: pointer;
+     transition: background-color 0.3s ease, transform 0.3s ease;
+     margin-top: 10px;
+ }
+ 
+ .Delete-btn:hover {
+     background-color: #343434;
+     transform: scale(1.05);
+ }
+ 
+ /* Card Wrapper */
+ .plant-card-wrapper {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     margin: 5px; /* Reduced margin */
+     perspective: 1000px;
+ }
+ 
+ /* Animation for Card Flip */
+ .plant-card {
+     transform-style: preserve-3d;
+     transition: transform 0.6s;
+ }
+ 
+ .plant-card:hover {
+     transform: rotateY(5deg) rotateX(5deg);
+ }
+ 
+ /* Gradient Background for Cards */
+ .plant-card::before {
+     content: '';
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+     z-index: -1;
+     border-radius: 12px;
+ }
+ 
+ /* Icon Styling */
+ .plant-card .icon {
+     font-size: 40px;
+     margin-bottom: 15px;
+     color: #0d2602;
+ }
+ 
+ /* Responsive Design */
+ @media (max-width: 768px) {
+     .plant-card {
+         width: 100%;
+         margin: 5px 0; /* Reduced margin */
+     }
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Plant Card Styling */
+.plant-card {
+     background: #ffffff;
+     border: 1px solid #e0e0e0;
+     border-radius: 40px;
+     padding: 20px;
+     margin: 10px;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+     transition: transform 0.3s ease, box-shadow 0.3s ease;
+     width: 300px;
+     text-align: center;
+     position: relative;
+     overflow: hidden;
+ }
+ 
+ .plant-card:hover {
+     transform: translateY(-10px);
+     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+ }
+ 
+ .plant-card h2 {
+     font-size: 24px;
+     margin-bottom: 10px;
+     color: #052501;
+     font-weight: 600;
+ }
+ 
+ .plant-card h3 {
+     font-size: 18px;
+     color: #666;
+     margin-bottom: 15px;
+     font-weight: 500;
+ }
+ 
+ .plant-card .overview p {
+     margin: 8px 0;
+     font-size: 16px;
+     color: #444;
+ }
+ 
+ /* Status Alerts */
+ .status-alert {
+     margin-top: 15px;
+     padding: 10px;
+     border-radius: 8px;
+     text-align: center;
+     font-size: 14px;
+     font-weight: 500;
+ }
+ 
+ .alert-danger {
+     background-color: #f6ced5;
+     color: #c62828;
+     border: 1px solid #c62828;
+ }
+ 
+ .alert-success {
+     background-color: #d5f3d7;
+     color: #2e7d32;
+     border: 1px solid #2e7d32;
+ }
+ 
+ /* Critical Situation (Red Card) */
+ .plant-card.critical {
+     background-color: #ffd6da;
+     border-color: #c62828;
+ }
+ 
+ .plant-card.critical h2 {
+     color: #c62828;
+ }
+ 
+ /* Safe Situation (Green Card) */
+ .plant-card.safe {
+     background-color: #d1fbd5;
+     border-color: #2e7d32;
+ }
+ 
+ .plant-card.safe h2 {
+     color: #2e7d32;
+ }
+ 
+ /* Add Plant Button */
+ .add-plant-btn {
+     background-color: #0e2903;
+     color: white;
+     border: none;
+     border-radius: 25px;
+     padding: 10px 20px;
+     font-size: 16px;
+     cursor: pointer;
+     transition: background-color 0.3s ease, transform 0.3s ease;
+     display: inline-block;
+     margin-top: 20px;
+ }
+ 
+ .add-plant-btn:hover {
+     background-color: #0f2a03;
+     transform: scale(1.05);
+ }
+ 
+ /* Delete Button */
+ .Delete-btn {
+     background-color: #4a4949;
+     color: white;
+     border: none;
+     border-radius: 25px;
+     padding: 8px 16px;
+     font-size: 14px;
+     cursor: pointer;
+     transition: background-color 0.3s ease, transform 0.3s ease;
+     margin-top: 10px;
+ }
+ 
+ .Delete-btn:hover {
+     background-color: #343434;
+     transform: scale(1.05);
+ }
+ 
+ /* Card Wrapper */
+ .plant-card-wrapper {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     margin: 20px;
+     perspective: 1000px;
+ }
+ 
+ /* Animation for Card Flip */
+ .plant-card {
+     transform-style: preserve-3d;
+     transition: transform 0.6s;
+ }
+ 
+ .plant-card:hover {
+     transform: rotateY(5deg) rotateX(5deg);
+ }
+ 
+ /* Gradient Background for Cards */
+ .plant-card::before {
+     content: '';
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+     z-index: -1;
+     border-radius: 12px;
+ }
+ 
+ /* Icon Styling */
+ .plant-card .icon {
+     font-size: 40px;
+     margin-bottom: 15px;
+     color: #0d2602;
+ }
+ 
+ /* Responsive Design */
+ @media (max-width: 768px) {
+     .plant-card {
+         width: 100%;
+         margin: 10px 0;
+     }
+ }
+
+
+
+
+
+
+
+
+/* Navigation Bar */
+.navbar {
+     background-color: #000000;
+     padding: 10px 0;
+     display: flex;
+     justify-content: center; /* Centers items horizontally */
+     align-items: center; /* Ensures vertical alignment */
+     width: 100%;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ }
+
+ .navbar-list {
+     list-style: none;
+     margin: 0;
+     padding: 0;
+     display: flex;
+     justify-content: center; /* Centers the list */
+     align-items: center;
+     width: 100%;
+ }
+
+.navbar-list li {
+    margin: 0 15px; /* Espace entre les liens */
+}
+
+.navbar-list li a {
+    color: white; /* Couleur du texte */
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.navbar-list li a:hover {
+    background-color: #4bc714; /* Vert clair au survol */
+    transform: scale(1.05);
+    color: #ffffff; /* Texte foncé au survol */
+}
+
+/* Style pour le lien actif */
+.navbar-list li a.active {
+    background-color: #4bc714;
+    color: #ffffff;
+}
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+.plant-row {
+     display: flex;
+     justify-content: center;
+     flex-wrap: wrap;
+     width: 100%;
+     margin-bottom: 10px; /* Add spacing between rows */
+ }

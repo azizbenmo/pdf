@@ -3,9 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Utilisateur;
+use App\Form\ProfileType;
 use App\Form\UtilisateurType;
-use App\Form\VendorType; // Ajoutez cette ligne
-
+use App\Form\VendorType; 
 use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,6 +17,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mime\Address;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Controller\count;
+
 #[Route('/utilisateur')]
 final class UtilisateurController extends AbstractController
 {
@@ -128,22 +131,7 @@ final class UtilisateurController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-    #[Route('/test-email', name: 'app_test_email')]
-    public function testEmail(MailerInterface $mailer): Response
-    {
-        $email = (new TemplatedEmail())
-            ->from(new Address('gharbi.selim@esprit.tn', 'Test'))
-            ->to('gharbi.selim01@gmail.com' ) // Remplacez par une adresse e-mail valide
-            ->subject('Test Email')
-            ->text('Ceci est un test.');
-
-        try {
-            $mailer->send($email);
-            return new Response('E-mail envoyé avec succès!');
-        } catch (\Exception $e) {
-            return new Response('Échec de l\'envoi de l\'e-mail: ' . $e->getMessage());
-        }
-    }
+   
     #[Route('/inscription-vendeur', name: 'app_inscription_vendeur')]
     public function inscriptionVendeur(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
@@ -151,6 +139,11 @@ final class UtilisateurController extends AbstractController
         $form = $this->createForm(VendorType::class, $utilisateur);
     
         $form->handleRequest($request);
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $this->addFlash('error', 'Veuillez corriger les erreurs du formulaire.');
+
+        }
+        
         if ($form->isSubmitted() && $form->isValid()) {
             // Définir le rôle et le statut spécifiques
             $utilisateur->setRoleUser('ROLE_VENDOR');
@@ -171,4 +164,142 @@ final class UtilisateurController extends AbstractController
         ]);
     }
 
+    #[Route('/{id_user}/toggle-status', name: 'app_utilisateur_toggle_status', methods: ['POST'])]
+    public function toggleStatus(Utilisateur $utilisateur, EntityManagerInterface $entityManager,MailerInterface $mailer): Response
+    {
+        $utilisateur->setIsActive(!$utilisateur->getIsActive()); // Inverser l'état
+        $email = (new TemplatedEmail())
+        ->from(new Address('gharbi.selim@esprit.tn', 'SmartFarmer'))
+        ->to($utilisateur->getEmailUser() ) // Remplacez par une adresse e-mail valide
+        ->subject('Votre compte a été désactivé')
+->html("
+    <div style='font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f4; padding: 20px;'>
+        <div style='max-width: 500px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);'>
+            <h2 style='color: #d9534f;'>Compte Désactivé</h2>
+            <p style='color: #333; font-size: 16px;'>Bonjour,</p>
+            <p style='color: #555; font-size: 16px;'>
+                Votre compte a été désactivé. Si vous pensez que c'est une erreur, veuillez contacter le support.
+            </p>
+            <a href='mailto:Greengrowfeed@gmail.com' style='display: inline-block; background-color: #d9534f; color: white; padding: 10px 15px; border-radius: 5px; text-decoration: none; font-size: 16px;'>
+                Contacter le support
+            </a>
+        </div>
+    </div>
+")
+;
+
+   
+        $entityManager->persist($utilisateur); // Sauvegarde
+        $entityManager->flush();
+    
+        return $this->redirectToRoute('app_utilisateur_index');
+    }
+    /*#[Route('/search', name: 'app_utilisateur_search', methods: ['GET'])]
+    public function search(Request $request, UtilisateurRepository $utilisateurRepository, PaginatorInterface $paginator): Response
+    {
+        $query = $request->query->get('search');
+        $page = $request->query->getInt('page', 1);
+        
+        $qb = $utilisateurRepository->createQueryBuilder('u');
+        
+        if ($query) {
+            $qb->where('u.prenomUser LIKE :query OR u.nomUser LIKE :query OR u.emailUser LIKE :query')
+               ->setParameter('query', '%' . $query . '%');
+        }
+        
+        $pagination = $paginator->paginate(
+            $qb->getQuery(),
+            $page,
+            3
+        );
+    
+        return $this->render('utilisateur/_user_table.html.twig', [
+            'pagination' => $pagination,
+        ]);
+    }
+    
+
+*/
+
+#[Route('/search', name: 'user_search', methods: ['POST'])]
+    public function search(Request $request, UtilisateurRepository $userRepository): JsonResponse
+    {
+        $query = $request->request->get('query');
+
+        $users = $userRepository->search($query);
+
+        return $users;
+    }
+
+
+    #[Route('/inactive-users', name: 'app_utilisateur_inactive', methods: ['GET'])]
+public function showInactiveUsers(UtilisateurRepository $utilisateurRepository): Response
+{
+    // Récupérer les utilisateurs désactivés
+    $inactiveUsers = $utilisateurRepository->findInactiveUsers();
+
+    return $this->render('utilisateur/inactive_users.html.twig', [
+        'utilisateurs' => $inactiveUsers,
+    ]);
 }
+
+// src/Controller/UtilisateurController.php
+
+#[Route('/statistiques', name: 'app_utilisateur_statistiques', methods: ['GET'])]
+public function statistiques(UtilisateurRepository $utilisateurRepository): Response
+{
+    // Récupérer les utilisateurs désactivés
+    $utilisateursDesactives = $utilisateurRepository->findBy(['isActive' => false]);
+
+    // Calcul des statistiques
+    $totalDesactives = count($utilisateursDesactives); // Total d'utilisateurs désactivés
+    $roleStats = []; // Pour stocker la répartition par rôle
+
+    foreach ($utilisateursDesactives as $utilisateur) {
+        $role = $utilisateur->getRoleUser();
+        if (!isset($roleStats[$role])) {
+            $roleStats[$role] = 1;
+        } else {
+            $roleStats[$role]++;
+        }
+    }
+
+    // Retourner une réponse avec les statistiques
+    return $this->render('utilisateur/statistiques.html.twig', [
+        'totalDesactives' => $totalDesactives,
+        'roleStats' => $roleStats, // Passer les données des rôles
+    ]);
+}
+#[Route('/{id_user}/edit-profile', name: 'app_utilisateur_edit_profile', methods: ['GET', 'POST'])]
+public function editProfile(Request $request, Utilisateur $utilisateur, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
+{
+    // Vérifiez si l'utilisateur connecté est celui qui modifie son profil
+    if ($this->getUser() !== $utilisateur) {
+        throw $this->createAccessDeniedException("Vous ne pouvez pas modifier ce profil.");
+    }
+
+    // Créez un formulaire pour modifier les informations de l'utilisateur
+    $form = $this->createForm(ProfileType::class, $utilisateur);
+    
+
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        // Si le mot de passe a été modifié, nous le hachons à nouveau
+        
+
+        // Enregistrez les modifications dans la base de données
+        $entityManager->flush();
+
+        // Redirigez l'utilisateur vers sa page de profil
+        return $this->redirectToRoute('app_user', ['id_user' => $utilisateur->getIdUser()]);
+    }
+
+    return $this->render('frontend/profil.html.twig', [
+        'form' => $form->createView(),
+        'utilisateur' => $utilisateur,
+    ]);
+}
+
+   
+    }
