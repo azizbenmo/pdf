@@ -1,4 +1,4 @@
-# Système de Gestion E-commerce
+# Greengrow : Un site web d'e-commerce et de surveillance d'agriculture basé sur l'iot
 
 Un système e-commerce complet développé avec Symfony, offrant une gestion complète des produits, des commandes, des réclamations et des utilisateurs.
 
